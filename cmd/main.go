@@ -3,13 +3,22 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/zennon-sml/go-crud/controller"
+	"github.com/zennon-sml/go-crud/db"
+	"github.com/zennon-sml/go-crud/repository"
 	"github.com/zennon-sml/go-crud/usecase"
 )
 
 func main() {
   server := gin.Default()
 
-  ProductUseCase := usecase.NewProductUseCase()
+  dbConn, err := db.ConnectDB()
+  if err != nil {
+    panic(err)
+  }
+
+  ProdcutRepository := repository.NewProductRepository(dbConn)
+
+  ProductUseCase := usecase.NewProductUseCase(ProdcutRepository)
 
   ProductController := controller.NewProductController(ProductUseCase)
 

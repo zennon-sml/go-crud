@@ -4,14 +4,14 @@ services:
   go_db:
     container_name: go_db
     image: postgres:12
-    enviroment:
+    environment:
       POSTGRES_PASSWORD: asdf
       POSTGRES_USER: postgres
       POSTGRES_DB: gocrud
     ports:
-      - "5432:4444"
+      - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgressql/data
+      - pgdata:/var/lib/postgresql/data
 
 volumes:
   pgdata: {}
