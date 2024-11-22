@@ -16,7 +16,7 @@ func NewProductRepository(connection *sql.DB) ProdcutRepository {
     connection: connection,
   }
 }
-
+//Quando você usa func (pr *ProductRepository) como o receiver (receptor), está definindo que o método GetProducts pertence à instância do tipo *ProductRepository. Isso permite acessar os campos e métodos da estrutura ProductRepository diretamente dentro de GetProducts.
 func (pr *ProdcutRepository) GetProducts() ([]model.Product, error) {
   query := "SELECT id, name, price FROM products"
   rows, err := pr.connection.Query(query)
@@ -88,4 +88,8 @@ func (pr *ProdcutRepository) GetProductById(id int) (*model.Product, error) {
 
   query.Close()
   return &product, nil
+}
+
+func (pr *ProdcutRepository) DeleteProductById(id int) (productId int, err error) {
+  return 0, nil
 }

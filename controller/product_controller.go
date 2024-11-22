@@ -84,3 +84,26 @@ func (p *productController) GetProductById(ctx *gin.Context) {
 
   ctx.JSON(http.StatusOK, product)
 }
+
+func(p *productController) DeleteProductById(ctx *gin.Context) {
+  id := ctx.Param("id")
+
+  if id == "" {
+    response := model.Response {
+      Message: "id cant be null",
+    }
+    ctx.JSON(http.StatusBadRequest, response)
+    return
+  }
+
+  productId, err := strconv.Atoi(id)
+
+  if err != nil {
+    response := model.Response {
+      Message: "id must be a integer",
+    }
+    ctx.JSON(http.StatusBadRequest, response)
+  }
+
+  //implement usecase then usecase call reppository then usecase returns reponse for controller respond
+}

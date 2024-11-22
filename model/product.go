@@ -1,5 +1,5 @@
 package model
-
+//entitie
 type Product struct {
   ID int `json:"id_product"`
   Name string `json:"name"`
