@@ -1,6 +1,8 @@
 package usecase
 
 import (
+	"fmt"
+
 	"github.com/zennon-sml/go-crud/model"
 	"github.com/zennon-sml/go-crud/repository"
 )
@@ -44,7 +46,7 @@ func (pu *ProductUseCase) DeleteProductById(id int) (productId int, err error) {
 	//call the repository
 	deletedId, err := pu.repository.DeleteProductById(id)
 	if err != nil {
-		return 0, err
+		return 0, fmt.Errorf("error on the usecase")
 	}
 
 	return deletedId, nil

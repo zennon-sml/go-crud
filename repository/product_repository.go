@@ -93,7 +93,7 @@ func (pr *ProdcutRepository) GetProductById(id int) (*model.Product, error) {
 func (pr *ProdcutRepository) DeleteProductById(id int) (productId int, err error) {
   query, err := pr.connection.Prepare("DELETE FROM PRODUCTS WHERE id = $1")
   if err != nil {
-    return 0, err
+    return 0, fmt.Errorf("error on prepare")
   }
   var deletedId int
 
@@ -102,8 +102,9 @@ func (pr *ProdcutRepository) DeleteProductById(id int) (productId int, err error
     if err == sql.ErrNoRows {
       return 0, fmt.Errorf("id not found on db")
     }
-    return 0, err
+    return 0, fmt.Errorf("error on the query")
   }
 
+  query.Close()
   return deletedId, nil
 }
