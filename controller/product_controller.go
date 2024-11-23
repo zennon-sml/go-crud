@@ -103,7 +103,16 @@ func(p *productController) DeleteProductById(ctx *gin.Context) {
       Message: "id must be a integer",
     }
     ctx.JSON(http.StatusBadRequest, response)
-  }
 
   //implement usecase then usecase call reppository then usecase returns reponse for controller respond
+  deletedId, err := p.productUseCase.DeleteProductById(productId)
+  if err != nil {
+    ctx.JSON(http.StatusInternalServerError, err)
+    return
+  }
+  response := model.Response {
+    Message: "the id deleted was" + deletedId,
+  }
+  ctx.JSON(http.StatusOK, deletedId)
+}
 }

@@ -1,9 +1,6 @@
 package usecase
 
 import (
-	"net/http"
-
-	"github.com/gin-gonic/gin"
 	"github.com/zennon-sml/go-crud/model"
 	"github.com/zennon-sml/go-crud/repository"
 )
@@ -45,7 +42,7 @@ func (pu *ProductUseCase) GetProductById(id int) (*model.Product, error) {
 
 func (pu *ProductUseCase) DeleteProductById(id int) (productId int, err error) {
 	//call the repository
-	deletedId, err := pu.DeleteProductById(id) 
+	deletedId, err := pu.repository.DeleteProductById(id)
 	if err != nil {
 		return 0, err
 	}
