@@ -99,3 +99,9 @@ func (pr *ProdcutRepository) DeleteProductById(id int) (productId int, err error
 
   return deletedId, nil
 }
+
+func (pr *ProdcutRepository) UpdateProduct(product model.Product) (model.Product, error) {
+  query := "UPDATE products SET name = $1, price = $2 WHERE id = $3 RETURNING id, name, price"
+  return model.Product{}, nil
+
+}

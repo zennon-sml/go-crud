@@ -116,3 +116,7 @@ func(p *productController) DeleteProductById(ctx *gin.Context) {
   }
   ctx.JSON(http.StatusOK, response)
 }
+
+func(p *productController) UpdateProduct(ctx *gin.Context) {
+  ctx.JSON(http.StatusAccepted, gin.H{"message": "updateproduct"})
+}
