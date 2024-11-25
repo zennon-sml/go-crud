@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -108,14 +107,12 @@ func(p *productController) DeleteProductById(ctx *gin.Context) {
   //implement usecase then usecase call reppository then usecase returns reponse for controller respond
   deletedId, err := p.productUseCase.DeleteProductById(productId)
   if err != nil {
-    ctx.JSON(http.StatusInternalServerError, fmt.Errorf("error on the usecase"))
+    ctx.JSON(http.StatusInternalServerError, gin.H{"Error": err.Error()})
     return
   }
 
   response := model.Response {
-    Message: "the id deleted was" + strconv.Itoa(deletedId),
+    Message: "the id deleted was " + strconv.Itoa(deletedId),
   }
-  fmt.Println("erro2")
   ctx.JSON(http.StatusOK, response)
-  return
 }
