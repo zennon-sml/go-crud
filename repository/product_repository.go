@@ -101,7 +101,15 @@ func (pr *ProdcutRepository) DeleteProductById(id int) (productId int, err error
 }
 
 func (pr *ProdcutRepository) UpdateProduct(product model.Product) (model.Product, error) {
-  query := "UPDATE products SET name = $1, price = $2 WHERE id = $3 RETURNING id, name, price"
-  return model.Product{}, nil
 
+  var updatedProduct model.Product
+  err := pr.connection.QueryRow(
+    "UPDATE products SET name = $1, price = $2 WHERE id = $3 RETURNING id, name, price", 
+    product.Name, product.Price, product.ID,
+    ).Scan(&updatedProduct.ID, &updatedProduct.Name, &updatedProduct.Price)
+  if err != nil {
+    return model.Product{}, err
+  }
+
+  return updatedProduct, nil
 }

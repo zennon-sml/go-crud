@@ -118,5 +118,18 @@ func(p *productController) DeleteProductById(ctx *gin.Context) {
 }
 
 func(p *productController) UpdateProduct(ctx *gin.Context) {
-  ctx.JSON(http.StatusAccepted, gin.H{"message": "updateproduct"})
+  var product model.Product
+  err := ctx.BindJSON(&product)
+  if err != nil {
+    ctx.JSON(http.StatusBadRequest, err)
+    return
+  }
+
+  updatedProduct, err := p.productUseCase.UpdateProduct(product)
+  if err != nil {
+    ctx.JSON(http.StatusInternalServerError, gin.H{"message": err.Error()})
+    return
+  }
+
+  ctx.JSON(http.StatusAccepted, gin.H{"updatedProduct": updatedProduct})
 }
